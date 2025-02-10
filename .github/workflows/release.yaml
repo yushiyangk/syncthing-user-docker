@@ -26,7 +26,7 @@ jobs:
         run: |
           sed CHANGELOG.md -n -e '/###[[:space:]]*'"${RELEASE_VERSION//./\\.}"'/,/###[[:space:]]*.\+/p' | tail -n +2 | head -n -1 | tee release/RELEASE.md
           echo >> release/RELEASE.md
-          echo 'For documentation specific to this release, refer to [README.md for version ${{ github.ref_name }}]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/${{ github.ref_name }}).' >> release/RELEASE.md
+          echo 'For documentation specific to this release, refer to [README.md for version ${{ github.ref_name }}]('"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"'/tree/${{ github.ref_name }}).' >> release/RELEASE.md
         # Head and tail to remove the first and last line
       - name: Create release
         uses: yushiyangk/action-gh-release@v2
