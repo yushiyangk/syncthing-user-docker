@@ -2,7 +2,7 @@
 
 Run Syncthing in Docker for multiple users
 
-Each user will get their own self-contained instance of Syncthing
+Each user will get their own self-contained instance of Syncthing running in Docker
 
 ## Install
 
