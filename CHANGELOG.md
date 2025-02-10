@@ -6,6 +6,10 @@ The first two parts, <var>x</var>.<var>y</var>, corresponds to the version of th
 
 The final part, <var>z</var>, is incremented when the contents of this Project is updated, and is reset to 0 when any of the preceding parts change.
 
+### 1.29.1
+
+- Fixed: service fails to start when the user's `docker_env` does not already exist
+
 ### 1.29.0
 
 - Initial release, using Syncthing 1.29
