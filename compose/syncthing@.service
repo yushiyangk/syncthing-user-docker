@@ -1,0 +1,17 @@
+[Unit]
+Description=Syncthing in Docker for %I
+Requires=docker.service nss-lookup.target
+Wants=mnt-live.mount
+After=docker.service nss-lookup.target
+BindsTo=mnt-live.mount
+
+[Service]
+WorkingDirectory=/srv/docker/syncthing
+Environment="SYNCTHING_USER=%I"
+ExecStartPre=/usr/bin/env bash -c 'docker compose pull && sudo -u %i /srv/docker/syncthing/host_generate_docker_env.sh %i'
+ExecStart=/usr/bin/docker compose -p syncthing-%i up
+ExecStop=/usr/bin/docker compose -p syncthing-%i down
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

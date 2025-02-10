@@ -1,0 +1,36 @@
+name: syncthing
+services:
+  daemon:
+    image: syncthing/syncthing:1.29
+    # Depend on the specific version because we override undocumented behaviours defined in the Dockerfile
+    init: true
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    env_file:
+      - /home/$SYNCTHING_USER/.config/syncthing/docker_env
+    volumes:
+      - type: volume
+        source: working-dir
+        target: /var/syncthing
+      - type: bind
+        source: /srv/docker/syncthing/container_pre_entrypoint.sh
+        target: /bin/container_pre_entrypoint.sh
+        read_only: true
+      - type: bind
+        source: /mnt
+        target: /mnt
+    network_mode: host
+    healthcheck:
+      # Override HEALTHCHECK in Dockerfile
+      test:
+        - CMD
+        - '/bin/sh'
+        - '-c'
+        - 'curl -fkLsS -m 2 127.0.0.1:$$WEBUI_PORT/rest/noauth/health | grep -o --color=never OK || exit 1'
+      interval: 1m
+      timeout: 10s
+    entrypoint: ['/bin/container_pre_entrypoint.sh']
+
+volumes:
+  working-dir:
