@@ -8,7 +8,7 @@ BindsTo=mnt-live.mount
 [Service]
 WorkingDirectory=/srv/docker/syncthing
 Environment="SYNCTHING_USER=%I"
-ExecStartPre=/usr/bin/env bash -c 'docker compose pull && sudo -u %i /srv/docker/syncthing/host_generate_docker_env.sh %i'
+ExecStartPre=/usr/bin/env bash -c 'sudo -u %i /srv/docker/syncthing/host_generate_docker_env.sh %i && docker compose pull'
 ExecStart=/usr/bin/docker compose -p syncthing-%i up
 ExecStop=/usr/bin/docker compose -p syncthing-%i down
 Restart=on-failure
