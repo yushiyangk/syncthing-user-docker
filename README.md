@@ -13,7 +13,7 @@ Using Docker Compose:
 	This can be done on the command-line with
 
 	```sh
-	curl -s https://api.github.com/repos/yushiyangk/syncthing-user-docker/releases/latest | grep -F syncthing-user-docker-1. | grep -F browser_download_url | head -n 1 | cut -d ':' -f 2- | tr -d '"' | sudo wget -q -i - -P /srv/docker/syncthing/  # Download latest 1.x release
+	curl -s https://api.github.com/repos/yushiyangk/syncthing-user-docker/releases/latest | grep -F syncthing-user-docker- | grep -F browser_download_url | head -n 1 | cut -d ':' -f 2- | tr -d '"' | sudo wget -q -i - -P /srv/docker/syncthing/  # Download latest release
 	sudo unzip /srv/docker/syncthing/syncthing-user-docker-*.zip -d /srv/docker/syncthing/
 	sudo rm /srv/docker/syncthing/syncthing-user-docker-*.zip
 	```
