@@ -1,0 +1,37 @@
+name: Create release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '1.*'
+      - '2.*'
+
+jobs:
+  build-job:
+    name: Build and create release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Create output directory
+        run: mkdir -p release
+      - name: Package for Docker Compose
+        working-directory: compose
+        run: zip ../release/syncthing-user-docker-${{ github.ref_name }}.zip -r *
+      - name: Generate release description from CHANGELOG.md
+        env:
+          RELEASE_VERSION: ${{ github.ref_name }}
+          # Need to substitute '.' with '\.' to escape it in regex
+        run: |
+          sed CHANGELOG.md -n -e '/###[[:space:]]*'"${RELEASE_VERSION//./\\.}"'/,/###[[:space:]]*.\+/p' | tail -n +2 | head -n -1 | tee release/RELEASE.md
+          echo >> release/RELEASE.md
+          echo 'For documentation specific to this release, refer to [README.md for version ${{ github.ref_name }}]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/tree/${{ github.ref_name }}).' >> release/RELEASE.md
+        # Head and tail to remove the first and last line
+      - name: Create release
+        uses: yushiyangk/action-gh-release@v2
+        with:
+          draft: true
+          files: 'release/*.zip'
+          fail_on_unmatched_files: true
+          body_path: release/RELEASE.md
