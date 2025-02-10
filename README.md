@@ -18,7 +18,7 @@ Using Docker Compose:
 	sudo rm /srv/docker/syncthing/syncthing-user-docker-*.zip
 	```
 
-	If a previous version is already installed, you will be prompted to replace the existing files. Be careful not to clobber the existing `env`.
+	If a previous version is already installed, you will be prompted to replace the existing files.
 
 ### Install as a service for each user
 
