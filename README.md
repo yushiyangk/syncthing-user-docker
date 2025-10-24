@@ -48,7 +48,7 @@ If running from Docker Compose directly, in the `/srv/docker/syncthing/` directo
 
 <pre><code>sudo SYNCTHING_USER=<var>username</var> docker compose -p <var>instance_name</var> up</code></pre>
 
-where <code><var>instance_name</var></code> can be set to <code>syncthing-<var>username</var></code> unless otherwise desired. To run it in the background, add the `-d` flag after `docker compose`.
+where <code><var>instance_name</var></code> can be set to <code>syncthing-<var>username</var></code> or as otherwise desired. To run it in the background, add the `-d` flag after `docker compose`.
 
 
 ## Configure
